@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipospagoEditDlg" widgetVar="TipospagoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipospagoTitle}">
+            <h:form id="TipospagoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipospagoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTipospagoLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{tipospagoController.selected.id}" title="#{bundle.EditTipospagoTitle_id}" required="true" requiredMessage="#{bundle.EditTipospagoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditTipospagoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" validatorMessage="El nombre solo resive letras" value="#{tipospagoController.selected.nombre}" title="#{bundle.EditTipospagoTitle_nombre}" required="true" requiredMessage="#{bundle.EditTipospagoRequiredMessage_nombre}">
+                        <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        
+                            
+                        <p:outputLabel value="#{bundle.EditTipospagoLabel_status}" for="status" />
+                   
+                        <p:selectOneMenu id="status" value="#{tipospagoController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditTipospagoRequiredMessage_status}" >
+                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                        <f:facet name="footer">
+                        <p:separator />
+                        <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                        </f:facet>
+                        </p:selectOneMenu>
+                    
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipospagoController.update}" value="#{bundle.Save}" update="display,:TipospagoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipospagoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipospagoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

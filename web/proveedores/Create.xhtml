@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProveedoresCreateDlg" widgetVar="ProveedoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedoresTitle}">
+            <h:form id="ProveedoresCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proveedoresController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" validatorMessage="El nombre solo resive letras" value="#{proveedoresController.selected.nombre}" title="#{bundle.CreateProveedoresTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_nombre}">
+                        <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_rfc}" for="rfc" />
+                        <p:inputText id="rfc" value="#{proveedoresController.selected.rfc}" title="#{bundle.CreateProveedoresTitle_rfc}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_rfc}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_razonSocial}" for="razonSocial" />
+                        <p:inputText id="razonSocial" value="#{proveedoresController.selected.razonSocial}" title="#{bundle.CreateProveedoresTitle_razonSocial}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_razonSocial}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{proveedoresController.selected.direccion}" title="#{bundle.CreateProveedoresTitle_direccion}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.CreateProveedoresTitle_email}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_email}">
+                        
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_contacto}" for="contacto" />
+                        <p:inputText id="contacto" value="#{proveedoresController.selected.contacto}" title="#{bundle.CreateProveedoresTitle_contacto}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_contacto}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_cp}" for="cp" />
+                        <p:inputText id="cp" value="#{proveedoresController.selected.cp}" title="#{bundle.CreateProveedoresTitle_cp}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_cp}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_colonia}" for="colonia" />
+                        <p:inputText id="colonia" value="#{proveedoresController.selected.colonia}" title="#{bundle.CreateProveedoresTitle_colonia}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_colonia}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_telefono}" for="telefono" />
+                        <p:inputMask id="telefono" value="#{proveedoresController.selected.telefono}" title="#{bundle.CreateProveedoresTitle_telefono}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_telefono}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"  mask="(999) 999-9999"/>
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_idPais}" for="idPais" />
+
+                        <p:selectOneMenu 
+                            id="idPais" 
+                            value="#{proveedoresController.selected.idPais}" 
+                            required="true" 
+                            filter="true"
+                            requiredMessage="#{bundle.EditProveedoresRequiredMessage_idPais}">
+                            <f:selectItems 
+                                value="#{proveedoresController.listpais1}"
+                                var="idPaisItem"
+                                itemValue="#{idPaisItem}"/>
+                            <p:ajax
+                                event="change"
+                                update="idEstado,idMunicipio"
+                                listener="#{proveedoresController.buscaestados}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu 
+                            id="idEstado"
+                            value="#{proveedoresController.selected.idEstado}"
+                            required="true"
+                            filter="true"
+                            requiredMessage="#{bundle.EditProveedoresRequiredMessage_idEstado}">
+                            <f:selectItems 
+                                value="#{proveedoresController.listaestado1}"
+                                var="idEstadoItem"
+                                itemValue="#{idEstadoItem}"/>
+                            <p:ajax
+                                event="change"
+                                update="idMunicipio"
+                                listener="#{proveedoresController.buscamunicipios}"
+                                />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu
+                            id="idMunicipio"
+                            value="#{proveedoresController.selected.idMunicipio}" 
+                            required="true" 
+                            filter="true"
+                            requiredMessage="#{bundle.EditProveedoresRequiredMessage_idMunicipio}">
+                            <f:selectItems
+                                value="#{proveedoresController.listaminicipios1}"
+                                var="idMunicipioItem"
+                                itemValue="#{idMunicipioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{proveedoresController.create}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedoresCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedoresCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

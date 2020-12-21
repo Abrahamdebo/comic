@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FotosEditDlg" widgetVar="FotosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFotosTitle}">
+            <h:form id="FotosEditForm" enctype="multipart/form-data">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fotosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFotosLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{fotosController.selected.id}" title="#{bundle.EditFotosTitle_id}" required="true" requiredMessage="#{bundle.EditFotosRequiredMessage_id}"/>
+                       
+                         <p:outputLabel value="Seleciona un Archivo" for="foto" />
+                        <p:fileUpload id="foto" value="#{fotosController.foto}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg|gif)$/1"/>
+                        <p:inputText id="aux" value="#{fotosController.aux}" title="aux" type="hidden"/>
+                        <!--
+                        <p:outputLabel value="# {bundle.EditFotosLabel_ruta}" for="ruta" />
+                        <p:inputText id="ruta" value="# {fotosController.selected.ruta}" title="# {bundle.EditFotosTitle_ruta}" required="true" requiredMessage="# {bundle.EditFotosRequiredMessage_ruta}"/>
+                        -->
+                        <p:outputLabel value="#{bundle.EditFotosLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{fotosController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditFotosRequiredMessage_status}}" >
+                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                        <f:facet name="footer">
+                        <p:separator />
+                        <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                        </f:facet>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.EditFotosLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{fotosController.selected.idProducto}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.itemsAvailableSelectOne}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+               <!--
+                    <p:commandButton actionListener="# {fotosController.update}" value="# {bundle.Save}" update="display,:FotosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FotosEditDialog');"/>
+               -->
+               <p:commandButton value="Guardar archivo" action="#{fotosController.Almacenafoto}" ajax="false" update="display,:FotosListForm:datalist,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FotosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

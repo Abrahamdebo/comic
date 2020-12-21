@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EntradasCreateDlg" widgetVar="EntradasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEntradasTitle}">
+            <h:form id="EntradasCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{entradasController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEntradasLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{entradasController.selected.fecha}" title="#{bundle.EditEntradasTitle_fecha}" required="true" requiredMessage="#{bundle.EditEntradasRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEntradasLabel_subtotal}" for="subtotal" />
+                        <p:inputText id="subtotal" value="#{entradasController.selected.subtotal}" title="#{bundle.CreateEntradasTitle_subtotal}" required="true" requiredMessage="#{bundle.CreateEntradasRequiredMessage_subtotal}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;">
+                            <f:ajax 
+                                event="keyup"
+                                execute="subtotal"
+                                render="iva, total"
+                                listener="#{entradasController.calcular}"
+                            />
+                               
+                            
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateEntradasLabel_iva}" for="iva" />
+                        <p:inputText disabled="true" id="iva" value="0.16" title="#{bundle.CreateEntradasTitle_iva}" required="true" requiredMessage="#{bundle.CreateEntradasRequiredMessage_iva}"/>
+                        <p:outputLabel value="#{bundle.CreateEntradasLabel_total}" for="total" />
+                        <p:inputText disabled="true" id="total" value="#{entradasController.selected.total}" title="#{bundle.CreateEntradasTitle_total}" required="true" requiredMessage="#{bundle.CreateEntradasRequiredMessage_total}"/>
+                        <p:outputLabel value="#{bundle.CreateEntradasLabel_idProveedor}" for="idProveedor" />
+                        <p:selectOneMenu id="idProveedor" value="#{entradasController.selected.idProveedor}" >
+                            <f:selectItems value="#{proveedoresController.itemsAvailableSelectOne}"
+                                           var="idProveedorItem"
+                                           itemValue="#{idProveedorItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEntradasLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{entradasController.selected.idUsuario}" >
+                            <f:selectItems value="#{usuariosController.usuario}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{entradasController.create}" value="#{bundle.Save}" update="display,:EntradasListForm:datalist,:growl" oncomplete="handleSubmit(args,'EntradasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EntradasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

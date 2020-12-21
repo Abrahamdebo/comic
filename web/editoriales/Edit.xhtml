@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EditorialesEditDlg" widgetVar="EditorialesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEditorialesTitle}">
+            <h:form id="EditorialesEditForm" enctype="multipart/form-data" >
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{editorialesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEditorialesLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{editorialesController.selected.id}" title="#{bundle.EditEditorialesTitle_id}" required="true" requiredMessage="#{bundle.EditEditorialesRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditEditorialesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{editorialesController.selected.nombre}" title="#{bundle.EditEditorialesTitle_nombre}" required="true" requiredMessage="#{bundle.EditEditorialesRequiredMessage_nombre}"/>
+
+                       <p:outputLabel value="Seleciona un Archivo" for="foto" />
+                        <p:fileUpload id="foto" value="#{editorialesController.ruta}" required="true" requiredMessage="El archivo es obligatorio" mode="simple" allowTypes="/(\.|\/)(png|jpg|gif)$/1"/>
+                        <p:inputText id="aux" value="#{editorialesController.aux}" title="aux" type="hidden"/>
+                        
+                         <!--
+                         <p:outputLabel value="# {bundle.EditEditorialesLabel_foto}" for="foto" />
+                         <p:inputText id="foto" value="# {editorialesController.selected.foto}" title="# {bundle.EditEditorialesTitle_foto}" />
+                        -->
+                        <p:outputLabel value="#{bundle.EditEditorialesLabel_sitio}" for="sitio" />
+                        <p:inputText id="sitio" value="#{editorialesController.selected.sitio}" title="#{bundle.EditEditorialesTitle_sitio}" required="true" requiredMessage="#{bundle.EditEditorialesRequiredMessage_sitio}"/>
+                        <p:outputLabel value="#{bundle.EditEditorialesLabel_status}" for="status" />
+
+                        <p:selectOneMenu id="status" value="#{editorialesController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditEditorialesRequiredMessage_status}" >
+                            <f:selectItem itemLabel="Activo" itemValue="1" />
+                            <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                            <f:facet name="footer">
+                                <p:separator />
+                                <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                            </f:facet>
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+                   <!--
+                    <p:commandButton actionListener="# {editorialesController.update}" value="# {bundle.Save}" update="display,:EditorialesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EditorialesEditDialog');"/>
+                   -->
+                    <p:commandButton value="Guardar archivo" action="#{editorialesController.Almacenafoto}" ajax="false" update="display,:FotosListForm:datalist,:growl"/>
+                   <p:commandButton value="#{bundle.Cancel}" onclick="EditorialesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

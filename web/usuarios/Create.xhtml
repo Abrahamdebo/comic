@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosCreateDlg" widgetVar="UsuariosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuariosTitle}">
+            <h:form id="UsuariosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{usuariosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" validatorMessage="El nombre solo resive letras" value="#{usuariosController.selected.nombre}" title="#{bundle.CreateUsuariosTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_nombre}">
+                            <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_apPat}" for="apPat" />
+                        <p:inputText id="apPat" validatorMessage="El apellido paterno solo resive letras" value="#{usuariosController.selected.apPat}" title="#{bundle.CreateUsuariosTitle_apPat}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_apPat}">
+                            <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_apMat}" for="apMat" />
+                        <p:inputText id="apMat" validatorMessage="El apellido materno solo resive letras" value="#{usuariosController.selected.apMat}" title="#{bundle.CreateUsuariosTitle_apMat}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_apMat}">
+                            <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usuariosController.selected.email}" title="#{bundle.CreateUsuariosTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_email}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_telefono}" for="telefono" />
+                        <p:inputMask id="telefono" value="#{usuariosController.selected.telefono}" title="#{bundle.CreateUsuariosTitle_telefono}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_telefono}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;" mask="(999) 999-9999"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{usuariosController.selected.direccion}" title="#{bundle.CreateUsuariosTitle_direccion}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_colonia}" for="colonia" />
+                        <p:inputText id="colonia" value="#{usuariosController.selected.colonia}" title="#{bundle.CreateUsuariosTitle_colonia}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_colonia}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_cp}" for="cp" />
+                        <p:inputText id="cp" value="#{usuariosController.selected.cp}" title="#{bundle.CreateUsuariosTitle_cp}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_cp}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_fechaNaci}" for="fechaNaci" />
+                        <p:calendar id="fechaNaci" pattern="MM/dd/yyyy" value="#{usuariosController.selected.fechaNaci}" title="#{bundle.EditUsuariosTitle_fechaNaci}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{usuariosController.selected.username}" title="#{bundle.CreateUsuariosTitle_username}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_username}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_password}" for="password" />
+                        <p:password id="password" value="#{usuariosController.selected.password}" title="#{bundle.CreateUsuariosTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_password}" feedback = "true"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idPais}" for="idPais" />
+                        <p:selectOneMenu 
+                            id="idPais" 
+                            value="#{usuariosController.selected.idPais}"
+                            required="true" 
+                            filter="true"
+                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idPais}">
+                            <f:selectItems 
+                                value="#{usuariosController.listpais1}"
+                                var="pais"
+                                itemValue="#{pais}"/>
+                            <p:ajax 
+                                event="change" 
+                                update="idEstado,idMunicipio" 
+                                listener="#{usuariosController.buscaestados}" 
+                                />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu 
+                            id="idEstado" 
+                            value="#{usuariosController.selected.idEstado}"
+                            required="true" 
+                            filter="true"
+                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idEstado}"
+                            >
+                            <f:selectItems 
+                                value="#{usuariosController.listaestado1}"
+                                var="idEstadoItem"
+                                itemValue="#{idEstadoItem}"
+                                />
+                            <p:ajax 
+                                event="change" 
+                                update="idMunicipio" 
+                                listener="#{usuariosController.buscamunicipios}" 
+                                />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu 
+                            id="idMunicipio" 
+                            value="#{usuariosController.selected.idMunicipio}" 
+                            required="true" 
+                            filter="true"
+                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idMunicipio}"
+                            >
+                            <f:selectItems 
+                                value="#{usuariosController.listaminicipios1}"
+                                var="idMunicipioItem"
+                                itemValue="#{idMunicipioItem}"
+                                />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idTipoUsu}" for="idTipoUsu" />
+                        <p:selectOneMenu id="idTipoUsu" value="#{usuariosController.selected.idTipoUsu}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_idTipoUsu}">
+                            <f:selectItems value="#{tiposusuarioController.itemsAvailableSelectOne}"
+                                           var="idTipoUsuItem"
+                                           itemValue="#{idTipoUsuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuariosController.create}" value="#{bundle.Save}" update="display,:UsuariosListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuariosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuariosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

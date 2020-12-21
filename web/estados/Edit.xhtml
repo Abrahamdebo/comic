@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadosEditDlg" widgetVar="EstadosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstadosTitle}">
+            <h:form id="EstadosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEstadosLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{estadosController.selected.id}" title="#{bundle.EditEstadosTitle_id}" required="true" requiredMessage="#{bundle.EditEstadosRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditEstadosLabel_clavePais}" for="clavePais" />
+                        <p:inputText id="clavePais" value="#{estadosController.selected.clavePais}" title="#{bundle.EditEstadosTitle_clavePais}" />
+                        <p:outputLabel value="#{bundle.EditEstadosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{estadosController.selected.nombre}" title="#{bundle.EditEstadosTitle_nombre}" required="true" requiredMessage="#{bundle.EditEstadosRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditEstadosLabel_status}" for="status" />
+                    
+                        <p:selectOneMenu id="status" value="#{estadosController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditEstadosRequiredMessage_status}" >
+                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                        <f:facet name="footer">
+                        <p:separator />
+                        <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                        </f:facet>
+                        </p:selectOneMenu>
+                    
+                    
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estadosController.update}" value="#{bundle.Save}" update="display,:EstadosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstadosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

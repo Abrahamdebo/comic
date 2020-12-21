@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template_cruds.xhtml">
+
+
+
+        <ui:define name="contenido">
+
+            <main id="main">
+
+
+                <section id="cta" class="cta">
+                    <div class="container" data-aos="zoom-in">
+
+                        <div class="section-title">
+                            <h2>Tablas</h2>
+                            <p>Tablas de Administrador</p>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="icon-box">
+
+                                    <h4><h:link outcome="/categorias/List" value="Categorias"/></h4>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="icon-box">
+
+                                    <h4><h:link outcome="/categorias/List_baja" value="Categorias Borradas"/></h4>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/cveUnidad/List" value="Clave Unidad"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/cveUnidad/List_baja" value="Clave Unidad Borrados"/></h4>
+                                </div>
+                            </div>
+                    
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/detalleEntrada/List" value="Detalles Entradas"/></h4>
+                                </div>
+                            </div>                          
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/detalleEntrada/List_baja" value="Detalles Entradas Borrados"/></h4>
+                                </div>
+                            </div>                          
+                           
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/detalleVenta/List" value="Detalles Ventas"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/detalleVenta/List_baja" value="Detalles Ventas Borradas"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/editoriales/List" value="Editoriales"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/editoriales/List_baja" value="Editoriales Borradas"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/entradas/List" value="Entradas"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/entradas/List_baja" value="Entradas Borradas"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/estados/List" value="Estados"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/estados/List_baja" value="Estados Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/fotos/List" value="Fotos"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/fotos/List_baja" value="Fotos Borradas"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/municipios/List" value="Municipios"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/municipios/List_baja" value="Municipios Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/paises/List" value="Paises"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/paises/List_baja" value="Paises Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/productos/List" value="Productos"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/productos/List_baja" value="Productos Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/proveedores/List" value="Proveedores"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/proveedores/List_baja" value="Proveedores Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/tipospago/List" value="Tipos pago"/></h4>
+                                </div>
+                            </div>  
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/tipospago/List_baja" value="Tipos pago Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/tiposusuario/List" value="Tipos usuario"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/tiposusuario/List_baja" value="Tipos usuario Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/usuarios/List" value="Usuarios"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/usuarios/List_baja" value="Usuarios Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/ventas/List" value="Ventas"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/ventas/List_baja" value="Ventas Borrados"/></h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/videos/List" value="Videos"/></h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="icon-box">
+                                    <h4><h:link outcome="/videos/List_baja" value="Videos Borrados"/></h4>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+            </main>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosEditDlg" widgetVar="UsuariosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuariosTitle}">
+            <h:form id="UsuariosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{usuariosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_id}" for="id" />
+                        <p:inputText  disabled="true" id="id" value="#{usuariosController.selected.id}" title="#{bundle.EditUsuariosTitle_id}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" validatorMessage="El nombre solo resive letras" value="#{usuariosController.selected.nombre}" title="#{bundle.EditUsuariosTitle_nombre}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_nombre}">
+                           <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_apPat}" for="apPat" />
+                        <p:inputText id="apPat" validatorMessage="El apellido paterno solo resive letras" value="#{usuariosController.selected.apPat}" title="#{bundle.EditUsuariosTitle_apPat}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_apPat}">
+                           <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_apMat}" for="apMat" />
+                        <p:inputText id="apMat" validatorMessage="El apellido materno solo resive letras" value="#{usuariosController.selected.apMat}" title="#{bundle.EditUsuariosTitle_apMat}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_apMat}">
+                           <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usuariosController.selected.email}" title="#{bundle.EditUsuariosTitle_email}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_email}"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_telefono}" for="telefono" />
+                        <p:inputMask id="telefono" value="#{usuariosController.selected.telefono}" title="#{bundle.EditUsuariosTitle_telefono}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_telefono}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;" mask="(999) 999-9999"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{usuariosController.selected.direccion}" title="#{bundle.EditUsuariosTitle_direccion}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_colonia}" for="colonia" />
+                        <p:inputText id="colonia" value="#{usuariosController.selected.colonia}" title="#{bundle.EditUsuariosTitle_colonia}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_colonia}"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_cp}" for="cp" />
+                        <p:inputText id="cp" value="#{usuariosController.selected.cp}" title="#{bundle.EditUsuariosTitle_cp}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_cp}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_fechaNaci}" for="fechaNaci" />
+                        <p:calendar id="fechaNaci" pattern="MM/dd/yyyy" value="#{usuariosController.selected.fechaNaci}" title="#{bundle.EditUsuariosTitle_fechaNaci}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{usuariosController.selected.username}" title="#{bundle.EditUsuariosTitle_username}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_username}"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_password}" for="password" />
+                        <p:password id="password" value="#{usuariosController.selected.password}" title="#{bundle.EditUsuariosTitle_password}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_password}" feedback = "true"/>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_status}" for="status" />
+
+                        <p:selectOneMenu id="status" value="#{usuariosController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_status}" >
+                            <f:selectItem itemLabel="Activo" itemValue="1" />
+                            <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                            <f:facet name="footer">
+                                <p:separator />
+                                <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                            </f:facet>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_idPais}" for="idPais" />
+                        <p:selectOneMenu 
+                            id="idPais" 
+                            value="#{usuariosController.selected.idPais}" 
+                            required="true"
+                            filter="true"
+                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idPais}">
+                            <f:selectItems value="#{usuariosController.listpais1}"
+                                           var="Pais"
+                                           itemValue="#{Pais}"/>
+                            <p:ajax
+                                event="change"
+                                update="idEstado,idMunicipio"
+                                listener="#{usuariosController.buscaestados}"
+                                />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu 
+                            id="idEstado" 
+                            value="#{usuariosController.selected.idEstado}"
+                            required="true"
+                            filter="true"
+                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idEstado}">
+                            <f:selectItems 
+                                value="#{usuariosController.listaestado1}"
+                                var="idEstadoItem"
+                                itemValue="#{idEstadoItem}"
+                                />
+                            <p:ajax
+                                event="change"
+                                update="idMunicipio"
+                                listener="#{usuariosController.buscamunicipios}"
+                                />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu 
+                            id="idMunicipio" 
+                            value="#{usuariosController.selected.idMunicipio}"
+                            required="true"
+                            filter="true"
+                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idMunicipio}">
+                            <f:selectItems 
+                                value="#{usuariosController.listaminicipios1}"
+                                var="idMunicipioItem"
+                                itemValue="#{idMunicipioItem}"
+                                />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUsuariosLabel_idTipoUsu}" for="idTipoUsu" />
+                        <p:selectOneMenu id="idTipoUsu" value="#{usuariosController.selected.idTipoUsu}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_idTipoUsu}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tiposusuarioController.itemsAvailableSelectOne}"
+                                           var="idTipoUsuItem"
+                                           itemValue="#{idTipoUsuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuariosController.update}" value="#{bundle.Save}" update="display,:UsuariosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuariosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuariosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

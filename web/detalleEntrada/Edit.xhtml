@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleEntradaEditDlg" widgetVar="DetalleEntradaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetalleEntradaTitle}">
+            <h:form id="DetalleEntradaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleEntradaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDetalleEntradaLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{detalleEntradaController.selected.id}" title="#{bundle.EditDetalleEntradaTitle_id}" required="true" requiredMessage="#{bundle.EditDetalleEntradaRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleEntradaLabel_cantidad}" for="cantidad" />
+                        <p:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;" id="cantidad" value="#{detalleEntradaController.selected.cantidad}" title="#{bundle.EditDetalleEntradaTitle_cantidad}" required="true" requiredMessage="#{bundle.EditDetalleEntradaRequiredMessage_cantidad}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleEntradaLabel_precioCompra}" for="precioCompra" />
+                        <p:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;" id="precioCompra" value="#{detalleEntradaController.selected.precioCompra}" title="#{bundle.EditDetalleEntradaTitle_precioCompra}" required="true" requiredMessage="#{bundle.EditDetalleEntradaRequiredMessage_precioCompra}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleEntradaLabel_status}" for="status" />
+                        
+                        <p:selectOneMenu id="status" value="#{detalleEntradaController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditDetalleEntradaRequiredMessage_status}" >
+                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                        <f:facet name="footer">
+                        <p:separator />
+                        <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                        </f:facet>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.EditDetalleEntradaLabel_idEntrada}" for="idEntrada" />
+                        <p:selectOneMenu id="idEntrada" value="#{detalleEntradaController.selected.idEntrada}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{entradasController.itemsAvailableSelectOne}"
+                                           var="idEntradaItem"
+                                           itemValue="#{idEntradaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDetalleEntradaLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{detalleEntradaController.selected.idProducto}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.itemsAvailableSelectOne}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleEntradaController.update}" value="#{bundle.Save}" update="display,:DetalleEntradaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleEntradaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleEntradaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template_general.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Página Principal Mundo Cómic"></h:outputText>
+        </ui:define>
+
+        <ui:define name="contenido">
+            <main id="main">
+
+                <br/>
+                <section id="contact" class="contact">
+                    <div class="container" data-aos="fade-up">
+
+                        <div class="section-title">
+
+                            <p>lOGIN</p>
+
+                        </div>
+
+                        <div class="row mt-5">
+
+                            <div class="col-lg-8 mt-5 mt-lg-0">
+
+                                <h:form id="login" class="php-email-form">
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel for="user" value="Usuario"/>
+                                        <p:inputText id="user" required="true" value="#{login.username}"  />
+
+                                        <p:outputLabel for="pass" value="Password:"/>
+                                        <p:password id="pass" required="true" value="#{login.password}"  />
+
+                                        <h:column/>
+                                        <p:commandButton actionListener="#{login.acceder}" value="Ingresar" icon="ui-icon-key" update=":growl"/>
+
+                                    </h:panelGrid>
+
+                                </h:form>
+                                <p:separator/>
+
+                                <div class="section-title">
+
+                                    <p>Registro Cliente</p>
+                                </div>
+
+                                <h:form id="Cliente" class="php-email-form">
+
+                                    <p:inputText id="nombre"  placeholder="Nombre" validatorMessage="El nombre solo resive letras" value="#{usuariosController.selected.nombre}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_nombre}">
+                                    <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                                    </p:inputText><br/> <br/>
+                                    <p:inputText id="apPat"  placeholder="Apellido Paterno" validatorMessage="El apellido paterno solo resive letras" value="#{usuariosController.selected.apPat}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_apPat}">
+                                    <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                                    </p:inputText> <br/><br/>
+                                    <p:inputText id="apMat"  placeholder="Apellido Materno" validatorMessage="El apellido materno solo resive letras" value="#{usuariosController.selected.apMat}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_apMat}">
+                                    <f:validateRegex pattern="^[a-zA-Z]+$"  />
+                                    </p:inputText><br/><br/>
+                                    <p:inputText id="email"  placeholder="Correo" value="#{usuariosController.selected.email}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_email}"/><br/><br/>
+                                    <p:inputMask id="telefono"  placeholder="Telefono" value="#{usuariosController.selected.telefono}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_telefono}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;" mask="(999) 999-9999"/><br/><br/>
+                                    <p:inputText id="direccion"  placeholder="Dirección" value="#{usuariosController.selected.direccion}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_direccion}"/><br/><br/>
+                                    <p:inputText id="colonia"  placeholder="Colonia" value="#{usuariosController.selected.colonia}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_colonia}"/><br/><br/>
+                                    <p:outputLabel value="#{bundle.CreateUsuariosLabel_cp}" for="cp" />
+                                    <p:inputText id="cp"  placeholder="Codigo Postal" value="#{usuariosController.selected.cp}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_cp}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;"/><br/><br/>
+                                    <p:calendar id="fechaNaci" placeholder="Fecha de Nacimiento" pattern="MM/dd/yyyy" value="#{usuariosController.selected.fechaNaci}" title="#{bundle.EditUsuariosTitle_fechaNaci}"  showOn="button"/><br/><br/>
+                                    
+                                    
+                                    <p:inputText id="username"  placeholder="Nombre de Usuario" value="#{usuariosController.selected.username}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_username}"/> 
+                                  
+                                    <p:commandButton value="validar tipo de usuario">
+                                        <f:ajax
+                                            execute="username"
+                                            render="mensaje"
+                                            listener="#{usuariosController.username}"
+                                            />
+                                    </p:commandButton>
+                                    <h:outputLabel id="mensaje" value="#{usuariosController.mensaje2}"/><br/><br/>
+                                   
+                                    <p:password id="password"  placeholder="Contraseña" feedback = "true" value="#{usuariosController.selected.password}"  required="true" requiredMessage="#{bundle.CreateUsuariosRequiredMessage_password}"/><br/><br/>
+                                    <p:panelGrid columns="2">
+
+                                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idPais}" for="idPais" />
+                                        <p:selectOneMenu 
+                                            id="idPais" 
+                                            value="#{usuariosController.selected.idPais}"
+                                            required="true" 
+                                            filter="true"
+                                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idPais}">
+                                            <f:selectItems 
+                                                value="#{usuariosController.listpais1}"
+                                                var="pais"
+                                                itemValue="#{pais}"/>
+                                            <p:ajax 
+                                                event="change" 
+                                                rendered="idEstado,idMunicipio"
+                                                update="idEstado,idMunicipio" 
+                                                listener="#{usuariosController.buscaestados}" 
+                                                />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idEstado}" for="idEstado" />
+                                        <p:selectOneMenu 
+                                            id="idEstado" 
+                                            value="#{usuariosController.selected.idEstado}"
+                                            required="true" 
+                                            filter="true"
+                                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idEstado}"
+                                            >
+                                            <f:selectItems 
+                                                value="#{usuariosController.listaestado1}"
+                                                var="idEstadoItem"
+                                                itemValue="#{idEstadoItem}"
+                                                />
+                                            <p:ajax 
+                                                event="change"
+                                                rendered="idMunicipio"
+                                                update="idMunicipio" 
+                                                listener="#{usuariosController.buscamunicipios}" 
+                                                />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="#{bundle.CreateUsuariosLabel_idMunicipio}" for="idMunicipio" />
+                                        <p:selectOneMenu 
+                                            id="idMunicipio" 
+                                            value="#{usuariosController.selected.idMunicipio}" 
+                                            required="true" 
+                                            filter="true"
+                                            requiredMessage="#{bundle.EditUsuariosRequiredMessage_idMunicipio}"
+                                            >
+                                            <f:selectItems 
+                                                value="#{usuariosController.listaminicipios1}"
+                                                var="idMunicipioItem"
+                                                itemValue="#{idMunicipioItem}"
+                                                />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+
+                                    <p:commandButton value="Registar Cliente" icon="ui-icon-person">
+                                        <f:ajax
+                                            execute="Cliente"
+                                            render="Cliente"
+                                            listener="#{usuariosController.registartajax}"
+                                            
+                                            />
+                                    </p:commandButton>
+                                 <h:outputLabel id="mens" value="#{usuariosController.mensaje}"/><br/><br/>
+                                </h:form>
+                                 
+                                  
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section><!-- End Contact Section -->
+
+
+            </main><!-- End #main -->
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+

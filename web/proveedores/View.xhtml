@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProveedoresViewDlg" widgetVar="ProveedoresViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProveedoresTitle}">
+            <h:form id="ProveedoresViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proveedoresController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_id}"/>
+                        <h:outputText value="#{proveedoresController.selected.id}" title="#{bundle.ViewProveedoresTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_nombre}"/>
+                        <h:outputText value="#{proveedoresController.selected.nombre}" title="#{bundle.ViewProveedoresTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_rfc}"/>
+                        <h:outputText value="#{proveedoresController.selected.rfc}" title="#{bundle.ViewProveedoresTitle_rfc}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_razonSocial}"/>
+                        <h:outputText value="#{proveedoresController.selected.razonSocial}" title="#{bundle.ViewProveedoresTitle_razonSocial}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_direccion}"/>
+                        <h:outputText value="#{proveedoresController.selected.direccion}" title="#{bundle.ViewProveedoresTitle_direccion}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_email}"/>
+                        <h:outputText value="#{proveedoresController.selected.email}" title="#{bundle.ViewProveedoresTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_contacto}"/>
+                        <h:outputText value="#{proveedoresController.selected.contacto}" title="#{bundle.ViewProveedoresTitle_contacto}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_cp}"/>
+                        <h:outputText value="#{proveedoresController.selected.cp}" title="#{bundle.ViewProveedoresTitle_cp}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_colonia}"/>
+                        <h:outputText value="#{proveedoresController.selected.colonia}" title="#{bundle.ViewProveedoresTitle_colonia}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_telefono}"/>
+                        <h:outputText value="#{proveedoresController.selected.telefono}" title="#{bundle.ViewProveedoresTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_status}"/>
+                        <h:outputText value="#{proveedoresController.selected.status}" title="#{bundle.ViewProveedoresTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_idPais}"/>
+                        <h:outputText value="#{proveedoresController.selected.idPais.nombre}" title="#{bundle.ViewProveedoresTitle_idPais}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_idEstado}"/>
+                        <h:outputText value="#{proveedoresController.selected.idEstado.nombre}" title="#{bundle.ViewProveedoresTitle_idEstado}"/>
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_idMunicipio}"/>
+                        <h:outputText value="#{proveedoresController.selected.idMunicipio.nombre}" title="#{bundle.ViewProveedoresTitle_idMunicipio}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProveedoresViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

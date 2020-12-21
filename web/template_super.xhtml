@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+        <meta charset="utf-8"/>
+        <title><ui:insert name="title">Tablas Administrador</ui:insert></title>
+
+        <!-- Favicons -->
+        <link href="${facesContext.externalContext.requestContextPath}/resources/assets/img/favicon.png" rel="icon"/>
+        <link href="${facesContext.externalContext.requestContextPath}/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+
+        <!-- Vendor CSS Files -->
+        <h:outputStylesheet name="assets/vendor/bootstrap/css/bootstrap.min.css"/>
+        <h:outputStylesheet name="assets/vendor/boxicons/css/boxicons.min.css"/>
+        <h:outputStylesheet name="assets/vendor/owl.carousel/assets/owl.carousel.min.css"/>
+        <h:outputStylesheet name="assets/vendor/venobox/venobox.css"/>
+        <h:outputStylesheet name="assets/vendor/remixicon/remixicon.css"/>
+        <h:outputStylesheet name="assets/vendor/aos/aos.css"/>
+
+        <!-- Template Main CSS File -->
+        <h:outputStylesheet name="assets/css/style.css"/>
+
+        <!-- =======================================================
+        * Template Name: Gp - v2.1.0
+        * Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
+        * Author: BootstrapMade.com
+        * License: https://bootstrapmade.com/license/
+        ======================================================== -->
+
+        <f:event type="preRenderView" listener="#{login.verificarNivel(2)}" />
+
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />   
+
+
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top ">
+            <div class="container d-flex align-items-center justify-content-between">
+
+                <h1 class="logo"><a href="index.html">Mundo Cómic<span>.</span></a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+                <nav class="nav-menu d-none d-lg-block">
+                    <ul>
+                        <li class="active">
+                            <h:link outcome="bienvenido" value="Home"/>
+                        </li>
+                        <li class="active">
+                            <h:link outcome="super" value="Admin"/>
+                        </li>
+
+                        <li class="drop-down"><a>Tablas</a>
+                            <ul>
+
+
+                                <li><h:link outcome="/supervisor/categoriasS/List" value="Categorias"/></li>
+
+
+                                <li><h:link outcome="/supervisor/cveUnidad/List" value="Clave Unitaria"/></li>
+
+
+                                <li><h:link outcome="/supervisor/editoriales/List" value="Editoriales"/></li>
+
+                                <li class="drop-down"><a>Entradas</a>
+                                    <ul>
+                                        <li><h:link outcome="/supervisor/entradas/List" value="Entradas"/></li>
+                                        <li><h:link outcome="/supervisor/detalleEntrada/List" value="Detalles Entradas"/></li>
+                                    </ul>
+                                </li>
+
+                                <li><h:link outcome="/supervisor/estados/List" value="Estados"/></li>
+
+
+                                <li><h:link outcome="/supervisor/municipios/List" value="Municipios"/></li>
+
+                                <li class="drop-down"><a>Multimedia</a>
+                                    <ul>
+                                        <li><h:link outcome="/supervisor/fotos/List" value="Fotos"/></li>
+                                        <li><h:link outcome="/supervisor/videos/List" value="Videos"/></li>
+                                    </ul>
+                                </li>
+
+                                <li><h:link outcome="/supervisor/paises/List" value="Paises"/></li>
+
+
+                                <li><h:link outcome="/supervisor/productos/List" value="Productos"/></li>
+
+                                <li><h:link outcome="/supervisor/proveedores/List" value="Proveedores"/></li>
+
+
+                                <li><h:link outcome="/supervisor/tipospago/List" value="Tipos pago"/></li>
+
+                                <li class="drop-down"><a>Usuarios</a>
+                                    <ul>
+                                        <li><h:link outcome="/supervisor/usuarios/List" value="Usuarios"/></li>
+                                        <li><h:link outcome="/supervisor/tiposusuario/List" value="Tipos Usuario"/></li>
+                                    </ul>
+                                </li>
+                                <li class="drop-down"><a>Ventas</a>
+                                    <ul>
+                                        <li><h:link outcome="/supervisor/ventas/List" value="Ventas"/></li>
+                                        <li><h:link outcome="/supervisor/detalleVenta/List" value="Detalles Ventas"/></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav><!-- .nav-menu -->
+                <h:link value="#{sessionScope.nom_completo}"/>
+
+                <h:form>
+                    <p:commandButton actionListener="#{login.cerrarsession()}" value="Cerrar Session" styleClass="get-started-btn scrollto"/>
+                </h:form>
+
+                <a href="#about" class="get-started-btn scrollto">LOGIN</a>
+
+            </div>
+        </header><!-- End Header -->
+
+
+
+
+
+        <p:layoutUnit position="center">
+
+            <ui:insert name="contenido"/>
+
+        </p:layoutUnit>
+
+
+
+
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-info">
+                                <h3>Mundo Cómic<span>.</span></h3>
+                                <p>
+                                    Col. Cultural <br/>
+                                    Dibujo #113, Toluca.Mx<br/><br/>
+                                    <strong>Telefono:</strong> 7226055779<br/>
+                                    <strong>Email:</strong> jlujanog@toluca.tecnm.mx<br/>
+                                </p>
+                                <div class="social-links mt-3">
+                                    <a href="https://twitter.com/juancarlosluja" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                    <a href="https://www.facebook.com/juancarlos.lujanogomez/" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                    <a href="https://www.instagram.com/juancarloslujanogomez/?hl=es-la" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                    <!--<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 footer-links">
+                            <h4>Enlaces útiles</h4>
+                            <ul>
+                                <li><i class="bx bx-chevron-right"></i> <a href="bienvenido.xhtml">Inicio</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 footer-links">
+                            <h4>Nuestros Servicios</h4>
+                            <ul>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 footer-links">
+                            <h4>Nuestros Servicios</h4>
+                            <ul>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>Gp</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/ -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+        </footer><!-- End Footer -->
+
+        <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+        <div id="preloader"></div>
+
+
+        <!-- Vendor JS Files -->
+        <!--<h:outputScript name="assets/vendor/jquery/jquery.min.js"/>-->
+        <h:outputScript name="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+        <h:outputScript name="assets/vendor/jquery.easing/jquery.easing.min.js"/>
+        <h:outputScript name="assets/vendor/php-email-form/validate.js"/>
+        <h:outputScript name="assets/vendor/owl.carousel/owl.carousel.min.js"/>
+        <h:outputScript name="assets/vendor/isotope-layout/isotope.pkgd.min.js"/>
+        <h:outputScript name="assets/vendor/venobox/venobox.min.js"/>
+        <h:outputScript name="assets/vendor/waypoints/jquery.waypoints.min.js"/>
+        <h:outputScript name="assets/vendor/counterup/counterup.min.js"/>
+        <h:outputScript name="assets/vendor/aos/aos.js"/>
+
+        <!-- Template Main JS File -->
+        <h:outputScript name="assets/js/main.js"/>
+
+    </h:body>
+</html>

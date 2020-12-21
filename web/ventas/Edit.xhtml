@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VentasEditDlg" widgetVar="VentasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVentasTitle}">
+            <h:form id="VentasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ventasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVentasLabel_id}" for="id" />
+                        <p:inputText  disabled="true" id="id" value="#{ventasController.selected.id}" title="#{bundle.EditVentasTitle_id}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditVentasLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ventasController.selected.fecha}" title="#{bundle.EditVentasTitle_fecha}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditVentasLabel_subtotal}" for="subtotal" />
+                        <p:inputText id="subtotal" value="#{ventasController.selected.subtotal}" title="#{bundle.EditVentasTitle_subtotal}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_subtotal}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57 ) if(event.which != 8) return false;">
+                                               <f:ajax 
+                                event="keyup"
+                                execute="subtotal"
+                                render="iva, total"
+                                listener="#{ventasController.calcular}"
+                            />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.EditVentasLabel_iva}" for="iva" />
+                        <p:inputText disabled="true" id="iva" value="0.16" title="#{bundle.EditVentasTitle_iva}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_iva}"/>
+                        <p:outputLabel value="#{bundle.EditVentasLabel_total}" for="total" />
+                        <p:inputText disabled="true" id="total" value="#{ventasController.selected.total}" title="#{bundle.EditVentasTitle_total}" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_total}"/>
+                        <p:outputLabel value="#{bundle.EditVentasLabel_status}" for="status" />
+                        
+                        <p:selectOneMenu id="status" value="#{ventasController.selected.status}" style="width:125px" required="true" requiredMessage="#{bundle.EditVentasRequiredMessage_status}" >
+                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                        <f:facet name="footer">
+                        <p:separator />
+                        <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                        </f:facet>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.EditVentasLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{ventasController.selected.idCliente}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.cliente}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVentasLabel_idTipoPago}" for="idTipoPago" />
+                        <p:selectOneMenu id="idTipoPago" value="#{ventasController.selected.idTipoPago}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipospagoController.itemsAvailableSelectOne}"
+                                           var="idTipoPagoItem"
+                                           itemValue="#{idTipoPagoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVentasLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{ventasController.selected.idUsuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.usuario}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ventasController.update}" value="#{bundle.Save}" update="display,:VentasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VentasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VentasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
